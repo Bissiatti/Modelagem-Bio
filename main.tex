@@ -1,0 +1,318 @@
+%% abtex2-modelo-trabalho-academico.tex, v-1.9.2 laurocesar
+%% Copyright 2012-2014 by abnTeX2 group at http://abntex2.googlecode.com/ 
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is the abnTeX2 team, led
+%% by Lauro César Araujo. Further information are available on 
+%% http://abntex2.googlecode.com/
+%%
+%% This work consists of the files abntex2-modelo-trabalho-academico.tex,
+%% abntex2-modelo-include-comandos and abntex2-modelo-references.bib
+%%
+
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+% abnTeX2: Modelo de Trabalho Academico (tese de doutorado, dissertacao de
+% mestrado e trabalhos monograficos em geral) em conformidade com 
+% ABNT NBR 14724:2011: Informacao e documentacao - Trabalhos academicos -
+% Apresentacao
+% ------------------------------------------------------------------------
+% ------------------------------------------------------------------------
+
+\documentclass[
+	% -- opções da classe memoir --
+	12pt,				% tamanho da fonte
+	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
+	twoside,			% para impressão em verso e anverso. Oposto a oneside
+	a4paper,			% tamanho do papel. 
+	% -- opções da classe abntex2 --
+	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
+	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
+	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
+	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
+	% -- opções do pacote babel --
+	english,			% idioma adicional para hifenização
+	french,				% idioma adicional para hifenização
+	spanish,			% idioma adicional para hifenização
+	brazil				% o último idioma é o principal do documento
+	]{abntex2}
+
+% ---
+% Pacotes básicos 
+% ---
+\usepackage{lmodern}			% Usa a fonte Latin Modern			
+\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
+\usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{color}				% Controle das cores
+\usepackage{graphicx}			% Inclusão de gráficos
+\usepackage{microtype} 			% para melhorias de justificação
+% ---
+		
+% ---
+% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+% ---
+\usepackage{lipsum}				% para geração de dummy text
+% ---
+
+% ---
+% Pacotes de citações
+% ---
+\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
+\usepackage[alf]{abntex2cite}	% Citações padrão ABNT
+
+% --- 
+% CONFIGURAÇÕES DE PACOTES
+% --- 
+
+% ---
+% Configurações do pacote backref
+% Usado sem a opção hyperpageref de backref
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+% Texto padrão antes do número das páginas
+\renewcommand{\backref}{}
+% Define os textos da citação
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+% ---
+
+% ---
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+\titulo{Modelagem Matemática da Malária}
+\autor{Emanuel Bissiatti de Almeida \\ Rafael Gomes Portácio de Souza}
+\local{Brasil}
+\data{2021}
+\orientador{Flávio Codeço Coelho}
+\instituicao{%
+  Fundação Getúlio Vargas -- FGV
+  \par
+  Escola de Matemática Aplicada -- EMAp
+  \par
+  }
+\tipotrabalho{Trabalho de Modelagem Biológica}
+% O preambulo deve conter o tipo do trabalho, o objetivo, 
+% o nome da instituição e a área de concentração 
+\preambulo{Modelagem matemática de disseminação epidemiológica da malária.}
+% ---
+
+
+% ---
+% Configurações de aparência do PDF final
+
+% alterando o aspecto da cor azul
+\definecolor{blue}{RGB}{41,5,195}
+
+% informações do PDF
+\makeatletter
+\hypersetup{
+     	%pagebackref=true,
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={\imprimirpreambulo},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acadêmico}, 
+		colorlinks=true,       		% false: boxed links; true: colored links
+    	linkcolor=blue,          	% color of internal links
+    	citecolor=blue,        		% color of links to bibliography
+    	filecolor=magenta,      		% color of file links
+		urlcolor=blue,
+		bookmarksdepth=4
+}
+\makeatother
+% --- 
+
+% --- 
+% Espaçamentos entre linhas e parágrafos 
+% --- 
+
+% O tamanho do parágrafo é dado por:
+\setlength{\parindent}{1.3cm}
+
+% Controle do espaçamento entre um parágrafo e outro:
+\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ----
+% Início do documento
+% ----
+\begin{document}
+
+% Retira espaço extra obsoleto entre as frases.
+\frenchspacing 
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+% \pretextual
+
+% ---
+% Capa
+% ---
+\imprimircapa
+% ---
+
+% ---
+% Folha de rosto
+% (o * indica que haverá a ficha bibliográfica)
+% ---
+\imprimirfolhaderosto*
+% ---
+
+% ---
+% Inserir a ficha bibliografica
+% ---
+
+% Isto é um exemplo de Ficha Catalográfica, ou ``Dados internacionais de
+% catalogação-na-publicação''. Você pode utilizar este modelo como referência. 
+% Porém, provavelmente a biblioteca da sua universidade lhe fornecerá um PDF
+% com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
+% com o documento, salve-o como PDF no diretório do seu projeto e substitua todo
+% o conteúdo de implementação deste arquivo pelo comando abaixo:
+%
+% \begin{fichacatalografica}
+%     \includepdf{fig_ficha_catalografica.pdf}
+% \end{fichacatalografica}
+
+\newpage
+
+% ---
+% inserir o sumario
+% ---
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage
+% ---
+
+
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+
+% ----------------------------------------------------------
+% Introdução (exemplo de capítulo sem numeração, mas presente no Sumário)
+% ----------------------------------------------------------
+\chapter*[Introdução]{Introdução}
+\addcontentsline{toc}{chapter}{Introdução}
+% ----------------------------------------------------------
+
+\\
+A malária é uma doença não contagiosa que é transmitida por mosquitos fêmeas do gênero  \textit{Anopheles} \footnote{mosquitos de gênero também são conhecidos como mosquito-prego.} portadoras do protozoário \textit{Plasmodium}. Esse inseto é típico de climas úmidos e quentes. No Brasil, existe uma concentração dos mosquitos - e dos casos da doença -  na região Amazônica.
+
+Essa doença normalmente apresenta sintomas de febre alta, dores de cabeça, temores, calafrios e em alguns casos pode apresentar dores no corpo, perda do apetite, cansaço, vômitos e diarreia. Felizmente, segundo o Ministério da Saúde, a letalidade da malária é baixa: na região Amazônica é de 1,6/100.000 \cite{SUS} enquanto no restante do país a letalidade é cerca de 128 vezes maior. Isso ocorre, pois, o tratamento da malária disponibilizado pelo Ministério da Saúde,  principalmente na região Amazônica, é eficiente. Já nas outras regiões onde a malária é rara, a doença é mais difícil de ser identificada, e portanto possuiu tratamento menos eficaz.    
+
+
+Esse inseto põe ovos em locais de água parada, sendo assim, a densidade de mosquitos tende a aumentar conforme maior for a umidade do local. Por outro lado, outro fator climático que também interfere em sua proliferação, é o fato de que as fortes chuvas podem arrastar tais ovos(ou larvas) e diminuir assim a futura população desses mosquitos. Devido a tais fatores e ao seu curto ciclo de vida, a população desses insetos é extremamente dependente das condições climáticas e por causa disso é interessante que modelos que não consideram a interferência temporal sejam aplicados para pequenos espaços de tempo.
+
+Pessoas que já foram infectadas múltiplas vezes pela malária só apresentam imunidade parcial assim como não há uma vacina para a doença. Devido a isso, o foco de sua contenção está principalmente nas outras medidas de prevenção. Visando prever os níveis de disseminação dessa doença, esse trabalho faz uma modelagem epidemiológica, isto é, neste caso, uma análise em função do tempo do comportamento populacional do vetor da malária bem como a taxa de infectados da população humana.
+
+O primeiro modelo matemático da disseminação da Malária proposto foi o modelo de Ross-McDonald \cite{ndacherenga2019modelos}, em que é adotado um modelo SIS para o comportamento da população humana e SI para a população de mosquitos, que não se recuperam. O modelo porém assume que ambas as populações tem quantidade total constante. Suposição essa que não condiz com a realidade da população do mosquito uma vez que ela é fortemente influenciada por diversos fatores e também possui um curtíssimo ciclo de vida, o que favorece rápidas mudanças na população. Para medir as taxas de infecção nessas duas populações, o modelo assume que a taxa de infecção de uma população é proporcional à quantidade de indivíduos suscetíveis dela e também à quantidade de indivíduos da outra população que estejam infectados.
+
+
+Já o modelo alternativo proposto em \cite{macufa} apresenta uma modelagem visando a simplificação de dimensões. Por isso, o autor decidiu desconsiderar a dinâmica de populações entre os humanos e os mosquitos. Nele, diferente do Ross-McDonald, a taxa de contaminação é proporcional a quantidade de infectados multiplicado pela constante relacionada a densidade de mosquitos na região. Dessa forma, o modelo proposto apresenta 3 equações baseadas no modelo SIR. Ressaltamos que, no caso da malária, após sair do estado de infectado apenas uma pequena fração da população permanece recuperada, enquanto a grande maioria retorna ao grupo de suscetíveis.
+
+
+No modelo em \cite{wyse2006modelo} adota-se um modelo SEIS para população humana e SEI para a dos mosquitos que fazem parte do grupo de possíveis vetores (fêmeas em fase adulta). Nele assume-se apenas a população humana como constante: as taxas de natalidade e mortalidade que estão inclusas no modelo são iguais. Já a população de mosquitos segue o crescimento logístico, pois o seu ciclo de vida é curto quando comparado aos humanos. Semelhante ao modelo de Ross-McDonald, as taxas de contato com a doença, que nesse caso representam a transição de suscetível para exposto, são proporcionais ao produto da respectiva população suscetível com a população infectada da outra espécie. O modelo também considera a existência de múltiplas formas de tratamento, cada uma com um diferente grau de eficácia.
+
+Dessa forma, é relevante que haja modelos de predição para que se saibam as zonas mais prováveis de disseminação, por isso, usaremos para a população humana o modelo SIS (Suscetíveis Infectados Suscetíveis) e SI para o mosquito. Assumindo que apenas a população humana é constante. 
+
+
+
+\chapter*[Metodologia]{Metodologia}
+\addcontentsline{toc}{chapter}{Metodologia}
+
+Em nossa análise, vamos modelar o vetor como a população de mosquitos fêmeas do gênero \textit{Anopheles}, mais comum transmissor da malária no Brasil, e a população humana que vive na região amazônica onde se localiza a maior quantidade de casos de malária no país. No nosso modelo, a população de mosquito $V$ segue um crescimento proporcional à população em relação ao tempo enquanto a população $H$ permanece constante. Essa decisão se justifica no ciclo de vida curto do mosquito quando comparado ao do homem e na baixa mortalidade da doença na região Amazônica. Temos:
+
+$\frac{\partial H}{\partial t} = 0 $ 
+
+
+$ \frac{\partial V}{\partial t}= nV -m_IV_I-m_SV_S$
+
+(Onde ambos $H$ e $V$ são medidos nas respectivas unidades populacionais $U.H.$ e $U.V.$. Exemplos comuns de unidades populacionais: milhares de indivíduos, milhões de indivíduos.)
+
+Com relação da doença, vamos descrever a população humanos com o modelo SIS (Suscetível-Infectado-Suscetível), já que a malária é uma doença causa por protozoários: sua imunidade é baixa e a reinfecção por malária é comum no país \cite{SUS}. No caso do vetor, temos um modelo SI (Suscetível-Infectado), por simplicidade, consideramos que todos os mosquitos fêmeas nascem suscetíveis a doença e quando picam algum humano contaminado passam ao estado de infectado, quando já contamina os humanos ao sugar o seu sangue. Seja:
+
+\begin{itemize}
+    \item $t$ a unidade de tempo
+    \item $H_S$ quantidade de humanos suscetíveis;
+    \item $H_I$ quantidade de humanos infectados;
+    \item $V_S$ quantidade de mosquitos suscetíveis;
+    \item $V_I$ quantidade de mosquitos infectados;
+    \item $c$ é um fator para converter uma quantidade que está na unidade $U.H.$ para $U.V.$ (unid: $U.H.^{-1}U.V.$);
+    \item $a,b,p,q,n,m_I,m_S$ constantes;
+    \item $a$ é a taxa de humanos picados por uma unidade de mosquito por unidade tempo (unid: $U.H.\cdot U.V.^{-1}T^{-1}$);
+    \item $b$ é a taxa de recuperação dos humanos por unidade tempo (unid: $T^{-1}$);
+    \item $p$ é a probabilidade de uma picada infectar um humano;
+    \item $q$ é a probabilidade de uma picada infectar um mosquito;
+    \item $n$ é a taxa de natalidade dos mosquitos, por hipótese, todo mosquito nasce suscetível (unid: $T^{-1}$);
+    \item $m_I$ é a taxa de mortalidade dos mosquitos infectados (unid: $T^{-1}$);
+    \item $m_S$ é a taxa de mortalidade dos mosquitos suscetíveis (unid: $T^{-1}$).
+\end{itemize}
+
+Considerando o modelo SIS para humanos e SI para mosquitos temos as equações:
+
+$H = H_I+H_S$
+ 
+
+$V = V_I + V_S$
+
+De acordo com essas equações, apenas com a quantidade de infectados e tamanho da população é possível descobrir o número de suscetíveis. Então, a variação populacional em relação ao tempo será:
+
+\textbf{Para a população humana:}
+
+$$ \frac{\partial H_I}{\partial t}= a pV_I\frac{(H-H_I)}{H}- b H_I$$
+
+Onde a parcela $a pV_I\frac{H-H_I}{H}$ representa a taxa de infecção, seguindo a ideia de que $a\cdot V_I$ é a taxa total de humanos picados por mosquitos infectados por unidade de tempo. Então ao multiplicar isso pela probabilidade $p$ da picada infectar o humano, teremos a taxa de infecções em humanos por unidade de tempo. Porém a infecção só é relevante para quem é suscetível, então ao multiplicar por $\frac{H_S}{H}$ (ou $\frac{(H-H_I)}{H}$) teremos a taxa de infecção nos humanos suscetíveis.
+A parcela $-b H_I$ representa a recuperação dos humanos do estado de infectado. (Note que $\frac{\partial H_I}{\partial t}=-\frac{\partial H_S}{\partial t}$)
+
+\textbf{Para a população dos vetores:}
+
+$$ \frac{\partial V_I}{\partial t}= \Big(a(V-V_I)\frac{H_I}{H}\Big)cq-m_I V_I$$
+
+$$ \frac{\partial V_S}{\partial t}= nV-\Big(aV_S\frac{H_I}{H}\Big)cq-m_S V_S$$
+
+Onde a parcela $\Big(a(V-V_I)\frac{H_I}{H}\Big)cq$ representa a taxa de infecção seguindo uma ideia semelhante à da população humana. $a(V-V_I)$ é a taxa total de humanos picados por mosquitos suscetíveis, multiplicando pela razão $\frac{H_I}{H}$ teremos a taxa de humanos infectados picados por mosquitos suscetíveis, note que essa é a taxa de eventos de possível infecção medida na unidade de $U.H.\cdot T^{-1}$, multipliquemos por um fator de conversão para a termos em $U.V.\cdot T^{-1}$ e então multipliquemos por $q$ para termos então a taxa de infecção nos mosquitos. A parcela $nV$ representa a natalidade. As parcelas $m_IV_I$ e $m_SV_S$ representam repectivamente a mortalidade dos suscetíveis e dos infectados.
+
+Observe que estamos trabalhando com três grandezas lineares nesse sistema, o número de indivíduos da população humana, o número de indivíduos da população de fêmeas do mosquito e o tempo. As equações, por sua vez referem-se a variação da quantidade de indivíduos em função do tempo. Fazendo a análise dimensional das equações, vemos que todas estão dimensionadas corretamente:
+$$ \frac{\partial H_I}{\partial t}= a pV_I\frac{(H-H_I)}{H}- b H_I$$
+$$U.H.\cdot T^{-1}=\frac{U.H.}{U.V.\cdot T}\cdot 1\cdot U.V.\frac{U.H.}{U.H.} - T^{-1}U.H.$$
+$$U.H.\cdot T^{-1}=U.H.\cdot T^{-1}$$
+
+
+$$ \frac{\partial V_I}{\partial t}= \Big(a(V-V_I)\frac{H_I}{H}\Big)cq-m_I V_I$$
+$$U.V.\cdot T^{-1}=\Big(\frac{U.H.}{U.V.\cdot T} (U.V.-U.V.)\frac{U.H.}{U.H.}\Big)\frac{U.V.}{U.H.}\cdot 1 - T^{-1}U.V.$$
+$$U.V.\cdot T^{-1}=U.V.\cdot T^{-1}$$
+
+
+$$ \frac{\partial V_S}{\partial t}= nV-\Big(aV_S\frac{H_I}{H}\Big)cq-m_S V_S$$
+$$U.V.\cdot T^{-1} = T^{-1}U.V. -  \Big(\frac{U.H.}{U.V.\cdot T} (U.V.-U.V.)\frac{U.H.}{U.H.}\Big)\frac{U.V.}{U.H.}\cdot 1 - T^{-1}U.V.$$
+$$U.V.\cdot T^{-1}=U.V.\cdot T^{-1}$$
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+
+\bibliography{refs}
+\end{document}
