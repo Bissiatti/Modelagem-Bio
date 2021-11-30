@@ -248,8 +248,7 @@ Em nossa análise, vamos modelar o vetor como a população de mosquitos fêmeas
 
 $\frac{\partial H}{\partial t} = 0 $ 
 
-
-$ \frac{\partial V}{\partial t}= nV -m_IV_I-m_SV_S$
+$ \frac{\partial V}{\partial t}= \frac{nV(k-V)}{k} -mV$
 
 (Onde ambos $H$ e $V$ são medidos nas respectivas unidades populacionais $U.H.$ e $U.V.$. Exemplos comuns de unidades populacionais: milhares de indivíduos, milhões de indivíduos.)
 
@@ -262,14 +261,14 @@ Com relação da doença, vamos descrever a população humanos com o modelo SIS
     \item $V_S$ quantidade de mosquitos suscetíveis;
     \item $V_I$ quantidade de mosquitos infectados;
     \item $c$ é um fator para converter uma quantidade que está na unidade $U.H.$ para $U.V.$ (unid: $U.H.^{-1}U.V.$);
-    \item $a,b,p,q,n,m_I,m_S$ constantes;
+    \item $a,b,p,q,n,m,k$ constantes;
     \item $a$ é a taxa de humanos picados por uma unidade de mosquito por unidade tempo (unid: $U.H.\cdot U.V.^{-1}T^{-1}$);
     \item $b$ é a taxa de recuperação dos humanos por unidade tempo (unid: $T^{-1}$);
     \item $p$ é a probabilidade de uma picada infectar um humano;
     \item $q$ é a probabilidade de uma picada infectar um mosquito;
     \item $n$ é a taxa de natalidade dos mosquitos, por hipótese, todo mosquito nasce suscetível (unid: $T^{-1}$);
-    \item $m_I$ é a taxa de mortalidade dos mosquitos infectados (unid: $T^{-1}$);
-    \item $m_S$ é a taxa de mortalidade dos mosquitos suscetíveis (unid: $T^{-1}$).
+    \item $m$ é a taxa de mortalidade dos mosquitos (unid: $T^{-1}$);
+    \item $k$ é a constante limite do modelo logístico  (unid: $T^{-1}$). 
 \end{itemize}
 
 Considerando o modelo SIS para humanos e SI para mosquitos temos as equações:
@@ -290,11 +289,11 @@ A parcela $-b H_I$ representa a recuperação dos humanos do estado de infectado
 
 \textbf{Para a população dos vetores:}
 
-$$ \frac{\partial V_I}{\partial t}= \Big(a(V-V_I)\frac{H_I}{H}\Big)cq-m_I V_I$$
+$$ \frac{\partial V_I}{\partial t}= \Big(a(V-V_I)\frac{H_I}{H}\Big)cq-m V_I$$
 
-$$ \frac{\partial V_S}{\partial t}= nV-\Big(aV_S\frac{H_I}{H}\Big)cq-m_S V_S$$
+$$ \frac{\partial V_S}{\partial t}= n\frac{k-V}{k}V-\Big(aV_S\frac{H_I}{H}\Big)cq-m V_S$$
 
-Onde a parcela $\Big(a(V-V_I)\frac{H_I}{H}\Big)cq$ representa a taxa de infecção seguindo uma ideia semelhante à da população humana. $a(V-V_I)$ é a taxa total de humanos picados por mosquitos suscetíveis, multiplicando pela razão $\frac{H_I}{H}$ teremos a taxa de humanos infectados picados por mosquitos suscetíveis, note que essa é a taxa de eventos de possível infecção medida na unidade de $U.H.\cdot T^{-1}$, multipliquemos por um fator de conversão para a termos em $U.V.\cdot T^{-1}$ e então multipliquemos por $q$ para termos então a taxa de infecção nos mosquitos. A parcela $nV$ representa a natalidade. As parcelas $m_IV_I$ e $m_SV_S$ representam repectivamente a mortalidade dos suscetíveis e dos infectados.
+Onde a parcela $\Big(a(V-V_I)\frac{H_I}{H}\Big)cq$ representa a taxa de infecção seguindo uma ideia semelhante à da população humana. $a(V-V_I)$ é a taxa total de humanos picados por mosquitos suscetíveis, multiplicando pela razão $\frac{H_I}{H}$ teremos a taxa de humanos infectados picados por mosquitos suscetíveis, note que essa é a taxa de eventos de possível infecção medida na unidade de $U.H.\cdot T^{-1}$, multipliquemos por um fator de conversão para a termos em $U.V.\cdot T^{-1}$ e então multipliquemos por $q$ para termos então a taxa de infecção nos mosquitos. A parcela $nV$ representa a natalidade. As parcelas $mV_I$ e $mV_S$ representam respectivamente a mortalidade dos suscetíveis e dos infectados.
 
 Observe que estamos trabalhando com três grandezas lineares nesse sistema, o número de indivíduos da população humana, o número de indivíduos da população de fêmeas do mosquito e o tempo. As equações, por sua vez referem-se a variação da quantidade de indivíduos em função do tempo. Fazendo a análise dimensional das equações, vemos que todas estão dimensionadas corretamente:
 $$ \frac{\partial H_I}{\partial t}= a pV_I\frac{(H-H_I)}{H}- b H_I$$
@@ -302,14 +301,132 @@ $$U.H.\cdot T^{-1}=\frac{U.H.}{U.V.\cdot T}\cdot 1\cdot U.V.\frac{U.H.}{U.H.} - 
 $$U.H.\cdot T^{-1}=U.H.\cdot T^{-1}$$
 
 
-$$ \frac{\partial V_I}{\partial t}= \Big(a(V-V_I)\frac{H_I}{H}\Big)cq-m_I V_I$$
+$$ \frac{\partial V_I}{\partial t}= \Big(a(V-V_I)\frac{H_I}{H}\Big)cq-m V_I$$
 $$U.V.\cdot T^{-1}=\Big(\frac{U.H.}{U.V.\cdot T} (U.V.-U.V.)\frac{U.H.}{U.H.}\Big)\frac{U.V.}{U.H.}\cdot 1 - T^{-1}U.V.$$
 $$U.V.\cdot T^{-1}=U.V.\cdot T^{-1}$$
 
 
-$$ \frac{\partial V_S}{\partial t}= nV-\Big(aV_S\frac{H_I}{H}\Big)cq-m_S V_S$$
-$$U.V.\cdot T^{-1} = T^{-1}U.V. -  \Big(\frac{U.H.}{U.V.\cdot T} (U.V.-U.V.)\frac{U.H.}{U.H.}\Big)\frac{U.V.}{U.H.}\cdot 1 - T^{-1}U.V.$$
+$$ \frac{\partial V_S}{\partial t}= n\frac{k-V}{k}V-\Big(aV_S\frac{H_I}{H}\Big)cq-m V_S$$
+$$U.V.\cdot T^{-1} = T^{-1}\frac{U.V.}{U.V.}U.V. -  \Big(\frac{U.H.}{U.V.\cdot T} (U.V.-U.V.)\frac{U.H.}{U.H.}\Big)\frac{U.V.}{U.H.}\cdot 1 - T^{-1}U.V.$$
 $$U.V.\cdot T^{-1}=U.V.\cdot T^{-1}$$
+
+\chapter*[Resultado]{Resultado}
+\addcontentsline{toc}{chapter}{Resultado}
+No equilíbrio da população humana:
+$$ 0= a pV_I^\ast\frac{(H-H_I^\ast)}{H}- b H_I^\ast$$
+$$a pV_I^\ast\frac{H_S^\ast}{H}= b H_I^\ast$$
+$$\frac{a pV_I^\ast}{bH}= \frac{H_I^\ast}{H_S^\ast}$$
+Ou seja:
+$$H_I^\ast = \frac{HapV_I^\ast}{\Big(bH+apV_I^\ast\Big)}$$
+$$H_S^\ast = \frac{H^2b}{\Big(bH+apV_I^\ast\Big)}$$
+
+No equilíbrio da população de insetos infectados:
+$$\Big(a(V^\ast-V_I^\ast)\frac{H_I^\ast}{H}\Big)cq=m V_I^\ast$$
+$$\Big(a(V_S^\ast)\frac{H_I^\ast}{H}\Big)cq=m V_I^\ast$$
+$$\frac{mH}{aH_I^\ast cq}=\frac{V_S^\ast}{V_I^\ast}$$
+
+Podemos manipular as equações acima para obter a equação abaixo:
+
+$$\frac{m(bH + apV^\ast_I)}{a^2p cq}=V_S^\ast$$
+
+A seguir temos o equilíbrio da população de insetos total:
+$$n\frac{k-V^\ast}{k}V^\ast-m V^\ast=0$$
+$$n\frac{k-V^\ast_I - V^\ast_S}{k}(V^\ast_I + V^\ast_S)- m V^\ast=0$$
+Seja a população diferente de zero, então:
+$$V^\ast=\frac{(n-m)}{n}k$$
+Note que para $n<m$ então a população decrescerá sempre, não importando as condições, então suponhamos $n\ge m.$
+Voltando para a equação que tínhamos antes, podemos concluir que:
+$$\frac{m(bH + apV^\ast_I)}{a^2p cq}=V^\ast - V_I^\ast$$
+$$\frac{m(bH + apV^\ast_I)}{a^2p cq}=\frac{(n-m)}{n}k - V_I^\ast$$
+Após algumas manipulações:
+$$V^\ast_I=\frac{a^2p cq\frac{(n-m)}{n}k-mbH}{apm+a^2p cq}$$
+E então:
+$$V^\ast_S=\frac{ap m\frac{(n-m)}{n}k+mbH}{apm+a^2p cq}$$
+$$H_I^\ast = \frac{H(a^2pcq\frac{(n-m)}{n}k-mbH)}{a^2pcq\frac{(n-m)}{n}k+acqbH}$$
+$$H_S^\ast = \frac{bH^2(acq+m)}{a^2pcq\frac{(n-m)}{n}k+acqbH}$$
+
+Note então que $H^\ast_I$, $H^\ast_S$, $V_I^\ast$ e $V_S^\ast$ serão equilibrados de forma estável desde que tenhamos $a^2p cq\frac{(n-m)}{n}k\ge mbH$, caso o contrário os equilíbrios $H^\ast_I$ e $V^\ast_I$ terão valor negativo. O equilíbrio $H^\ast_S$ terá valor acima de $H$. E o equilíbrio $V_S^\ast$ será maior que o equilíbrio $V^\ast.$\\
+
+Observe que quando ocorre a seguinte igualdade teremos um igual equilíbrio entre os humanos saudáveis e infectados: $$H(a^2pcq\frac{(n-m)}{n}k-mbH)=bH^2(acq+m)$$
+
+Escolhendo constantes de forma que ocorra essa igualdade entre ambas as populações, testemos em nossa simulação:
+
+
+\includegraphics[width=410px]{Figure_1.png}
+
+\includegraphics[width=410px]{Figure_6.png}
+
+Para a próxima simulação, nós alteramos o modelo ao considerar o limite $k$ do modelo não como uma constante, mas sim como uma função cosseno do tempo, limitada entre em alguns valores:
+
+\begin{itemize}
+    \item Seja $dia0$ o dia do ano onde o ambiente é menos propenso para a reprodução dos mosquitos.
+    
+    \item Seja $kmax$ o valor máximo assumido por $k$ durante o ano
+    
+    \item Seja $kmin$ o valor mínimo assumido por $k$ durante o ano.
+    
+    \item considere $t$ o tempo em dias.
+    
+\end{itemize}
+Então a função que descreve $k$
+
+    $y = \pi + (x-dia0)\frac{2\pi}{365}$
+    
+    $k(t) = (kmax + kmin + (kmax-kmin)\cos(y))/2$
+
+Tomamos essa decisão para melhor representar a realidade no modelo quando simulamos um longo período de tempo. 
+
+
+\includegraphics[width=410px]{Figure_10.png}
+
+\includegraphics[width=410px]{Figure_4.png}
+
+Por fim, uma simulação em que a doença não se desenvolve na população\\.
+
+\includegraphics[width=410px]{output.png}
+
+\chapter*[Discussão dos resultados]{Discussão dos resultados}
+
+
+
+
+Observe que, em pequeno espaço de tempo $t$ em dias, em nossas simulações com constantes definidas aleatoriamente, o modelo se estabiliza. De fato esse comportamento era esperado desde a construção do modelo: consideramos a população humana permanecendo constante no período de tempo e a população do vetor cresce seguindo um modelo logístico, então foi possível concluir que, pelas equações, haveria um ponto de equilíbrio. Assim, esse modelo é pensado para descrever o início de um surto da malária, afim de previr que este possa ocorrer. 
+
+No modelo aqui trabalhado, podemos traçar estimativas para o curto prazo e analisar múltiplos cenários ao se modificar as variáveis desejadas. Pelos equilíbrios, podemos analisar a desigualdade que precisa ser satisfeita para que a doença se sustente em nosso modelo ($a^2p cq\frac{(n-m)}{n}k\ge mbH$). Caso essa desigualdade não seja obedecida, segundo o nosso modelo, a doença naturalmente sumiria e deixaria de ser um problema.
+
+
+Ressaltamos que o crescimento populacional dos mosquitos se dá em um determinado período do ano, no início da temporada de chuvas, e meses depois a população decresce. Sendo assim, é de se esperar que este modelo não condiz com a realidade em um logo período de tempo, porém, suficiente para entender o comportamento da doença em pequeno espaço de tempo.
+
+Então, com o objetivo de adequar o modelo a realidade brasileira - a malária como uma doença que afeta os moradores da região amazônia anualmente principalmente na primavera \cite{boletim} - propomos que a taxa $k$ limitante do modelo logístico para a natalidade da população de mosquitos
+seguisse uma função $cosseno$ em uma escala anual, para que pudéssemos simular a malária como uma doença sazonal. 
+
+Apesar de obtermos algumas informações sobre o comportamento anual da malária, é evidente que não se trata de um retrato fiel da realidade brasileira. Os dados da malária ainda são escassos, e nós desconhecemos as populações das cidades onde foram estes foram registrados bem como o número de vetores presentes na região. 
+
+Sendo assim, deixamos aqui registrado apenas uma sugestão para uma análise sazonal da malária com o objetivo de estudar a interferência da variação da população dos mosquitos no número de casos da malária. Dessa pequena análise, observamos que quanto maior a população total de mosquitos, maior o número de infectados, fato que é observado na equação:  $ \frac{\partial V_S}{\partial t}= n\frac{k-V}{k}V-\Big(aV_S\frac{H_I}{H}\Big)cq-m V_S$
+
+
+
+
+\chapter*[Conclusão]{Conclusão}
+
+A malária mesmo que causando poucas mortes no país afeta anualmente milhares de brasileiros na região amazônica. Infelizmente, a ciência ainda não descobriu uma vacina para a malária, além de que, por ser uma doença causada por um protozoário, a resposta imune natural do corpo humano é baixa. Sendo assim, é importante compreender o comportamento tanto do vetor, quanto da população em relação a doença, para que os agentes públicos possam combater com mais eficiência a doença.
+
+
+Semelhante ao Ross-MacDonald, nosso modelo considera as taxas de infecção proporcionais às populações suscetíveis, sendo porém mais próximo da realidade ao considerar que existem variações na população de mosquitos. Tais variações são porém claramente limitadas, pois dependem apenas de constantes que não descrevem perfeitamente os fatores e fenômenos que ocorrem no meio. Ao considerarmos a natalidade do mosquito como variante ao longo do ano, mesmo assim ela não segue uma curva senoidal perfeita ao longo dos anos, sendo dependente dessa ampla possibilidade de fatores e fenômenos que o modelo não prevê. 
+
+Uma possível aplicação do nosso modelo, é compreender os fatores que determinam se haverá uma epidemia em uma região em que a malária é erradicada, mas os mosquitos pregos ainda coexistem com os humanos. Em nosso modelo, a desigualdade a seguir é determinante para a proliferação da malária $a^2p cq\frac{(n-m)}{n}k\ge mbH$.
+
+
+Além disso, compreender o comportamento sazonal da malária é importante para auxiliar o combate a doença. No período do ano em que a doença apresenta uma menor taxa de natalidade, por exemplo, as autoridades responsáveis poderiam criar medidas para isolar os humanos infectados dos mosquitos, assim, os novos mosquitos que nascem nesse período não se infectarem com a doença. Visto que, todo mosquito nasce suscetível e a transmissão da doença é realizada exclusivamente entre um humano e um vetor.
+
+
+Dessa forma, o nosso modelo epidemiológico da malária, como uma evolução natural do modelo de Ross-MacDonald, contribuiu para uma melhor análise da doença ao considerar a variação da população de mosquitos em relação ao tempo. Essa abordagem, que se justifica pela grande diferença da expectativa de vida do mosquito quando comparada ao seres humanos, nos proporcionou uma expansão do modelo ao considerar o $k$ variável durante o ano, fato esse que é comprovado pelos dados do Ministério da Saúde \cite{boletim}. Porém, note as limitações dessa abordagem, pois ela considera de forma simplificada que todos os anos terão comportamento iguais quando na verdade, é algo que depende dos fatores do meio como a curva de temperatura e umidade que por exemplo não seguem uma senoide ao longo dos anos. 
+
+ Portanto, nosso modelo pode contribuir para análise da malária sobretudo ao longo do ano ao melhorar e adaptar um modelo existente para um outro contexto. 
+
+
+
+
 % ----------------------------------------------------------
 % Referências bibliográficas
 % ----------------------------------------------------------
